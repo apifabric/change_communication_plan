@@ -1,0 +1,109 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+BudgetAllocation: Details the budget allocation for change initiatives.
+ChangeInitiative: Represents a change initiative within the bank, capturing overarching goals and objectives.
+ChangeOutcome: Records the outcomes of change initiatives, including success metrics.”
+CollaborationEffort: Represents efforts for cross-functional collaboration essential for change implementation.
+EngagementPlan: Outlines the approaches and actions to engage stakeholders during change management.
+Feedback: Collects feedback from staff and stakeholders about the change process.
+ResistanceMitigation: Details strategies to mitigate resistance to change within the bank.
+Skill: Catalogs individual skills required for effective change management.
+StaffMember: Contains information about staff members, including their roles and skills within the bank.
+StaffSkill: Junction table associating staff members with their respective skills.
+StaffTraining: Maps staff to the training sessions they have attended.
+TrainingSession: Captures data about training sessions organized to support the change initiative.
+'''
+}
+
+Table BudgetAllocation {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    amount FLOAT 
+    }
+
+Table ChangeInitiative {
+    id INTEGER [primary key]
+    name VARCHAR 
+    description VARCHAR 
+    }
+
+Table ChangeOutcome {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    outcome_description VARCHAR 
+    success_metric FLOAT 
+    }
+
+Table CollaborationEffort {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    department VARCHAR 
+    goal VARCHAR 
+    }
+
+Table EngagementPlan {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    strategy VARCHAR 
+    }
+
+Table Feedback {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    feedback_text VARCHAR 
+    }
+
+Table ResistanceMitigation {
+    id INTEGER [primary key]
+    initiative_id INTEGER 
+    tactic VARCHAR 
+    }
+
+Table Skill {
+    id INTEGER [primary key]
+    name VARCHAR 
+    }
+
+Table StaffMember {
+    id INTEGER [primary key]
+    name VARCHAR 
+    role VARCHAR 
+    skills_summary VARCHAR 
+    }
+
+Table StaffSkill {
+    id INTEGER [primary key]
+    staff_id INTEGER 
+    skill_id INTEGER 
+    }
+
+Table StaffTraining {
+    id INTEGER [primary key]
+    staff_id INTEGER 
+    training_id INTEGER 
+    }
+
+Table TrainingSession {
+    id INTEGER [primary key]
+    topic VARCHAR 
+    date DATETIME 
+    duration_hours FLOAT 
+    }
+
+
+
+// Relationships
+    Ref: BudgetAllocation.(initiative_id) < ChangeInitiative.(id)
+    Ref: ChangeOutcome.(initiative_id) < ChangeInitiative.(id)
+    Ref: CollaborationEffort.(initiative_id) < ChangeInitiative.(id)
+    Ref: EngagementPlan.(initiative_id) < ChangeInitiative.(id)
+    Ref: Feedback.(initiative_id) < ChangeInitiative.(id)
+    Ref: ResistanceMitigation.(initiative_id) < ChangeInitiative.(id)
+    Ref: StaffSkill.(skill_id) < Skill.(id)
+    Ref: StaffSkill.(staff_id) < StaffMember.(id)
+    Ref: StaffTraining.(staff_id) < StaffMember.(id)
+    Ref: StaffTraining.(training_id) < TrainingSession.(id)

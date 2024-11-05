@@ -1,0 +1,497 @@
+about:
+  date: November 05, 2024 16:42:52
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  BudgetAllocation:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: amount
+      required: true
+      template: real
+      type: FLOAT
+    description: Details the budget allocation for change initiatives.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Details the budget allocation for change initiatives.
+    label: BudgetAllocation
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: BudgetAllocation
+  ChangeInitiative:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: description
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents a change initiative within the bank, capturing overarching
+      goals and objectives.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents a change initiative within the bank, capturing overarching
+      goals and objectives.
+    label: ChangeInitiative
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: BudgetAllocationList
+      resource: BudgetAllocation
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: ChangeOutcomeList
+      resource: ChangeOutcome
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: CollaborationEffortList
+      resource: CollaborationEffort
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: EngagementPlanList
+      resource: EngagementPlan
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: FeedbackList
+      resource: Feedback
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: ResistanceMitigationList
+      resource: ResistanceMitigation
+    type: ChangeInitiative
+  ChangeOutcome:
+    columns:
+    - label: ' outcome_description*'
+      name: outcome_description
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: success_metric
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: "Records the outcomes of change initiatives, including success metrics.\u201D"
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: outcome_description
+    home_template: home_template.html
+    info_list: "Records the outcomes of change initiatives, including success metrics.\u201D"
+    label: ChangeOutcome
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: ChangeOutcome
+  CollaborationEffort:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: department
+      required: true
+      template: text
+      type: VARCHAR
+    - name: goal
+      template: text
+      type: VARCHAR
+    description: Represents efforts for cross-functional collaboration essential for
+      change implementation.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents efforts for cross-functional collaboration essential for
+      change implementation.
+    label: CollaborationEffort
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: CollaborationEffort
+  EngagementPlan:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: strategy
+      required: true
+      template: text
+      type: VARCHAR
+    description: Outlines the approaches and actions to engage stakeholders during
+      change management.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Outlines the approaches and actions to engage stakeholders during change
+      management.
+    label: EngagementPlan
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: EngagementPlan
+  Feedback:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: feedback_text
+      template: text
+      type: VARCHAR
+    description: Collects feedback from staff and stakeholders about the change process.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Collects feedback from staff and stakeholders about the change process.
+    label: Feedback
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: Feedback
+  ResistanceMitigation:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: initiative_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: tactic
+      required: true
+      template: text
+      type: VARCHAR
+    description: Details strategies to mitigate resistance to change within the bank.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Details strategies to mitigate resistance to change within the bank.
+    label: ResistanceMitigation
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: ResistanceMitigation
+  Skill:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Catalogs individual skills required for effective change management.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Catalogs individual skills required for effective change management.
+    label: Skill
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - skill_id
+      name: StaffSkillList
+      resource: StaffSkill
+    type: Skill
+  StaffMember:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: role
+      template: text
+      type: VARCHAR
+    - name: skills_summary
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Contains information about staff members, including their roles and
+      skills within the bank.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Contains information about staff members, including their roles and
+      skills within the bank.
+    label: StaffMember
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - staff_id
+      name: StaffSkillList
+      resource: StaffSkill
+    - direction: tomany
+      fks:
+      - staff_id
+      name: StaffTrainingList
+      resource: StaffTraining
+    type: StaffMember
+  StaffSkill:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: skill_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: staff_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: Junction table associating staff members with their respective skills.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Junction table associating staff members with their respective skills.
+    label: StaffSkill
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - skill_id
+      name: skill
+      resource: Skill
+    - direction: toone
+      fks:
+      - staff_id
+      name: staff
+      resource: StaffMember
+    type: StaffSkill
+  StaffTraining:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: staff_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: training_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: Maps staff to the training sessions they have attended.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Maps staff to the training sessions they have attended.
+    label: StaffTraining
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - staff_id
+      name: staff
+      resource: StaffMember
+    - direction: toone
+      fks:
+      - training_id
+      name: training
+      resource: TrainingSession
+    type: StaffTraining
+  TrainingSession:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: topic
+      required: true
+      template: text
+      type: VARCHAR
+    - name: date
+      required: true
+      type: DATETIME
+    - name: duration_hours
+      template: real
+      type: FLOAT
+    description: Captures data about training sessions organized to support the change
+      initiative.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Captures data about training sessions organized to support the change
+      initiative.
+    label: TrainingSession
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - training_id
+      name: StaffTrainingList
+      resource: StaffTraining
+    type: TrainingSession
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

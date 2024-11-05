@@ -1,0 +1,1 @@
+create an application that will support change management in a bank.  the application would include engagement, staff, skills, resistance mitigation, cross-functional collaboration, etc.

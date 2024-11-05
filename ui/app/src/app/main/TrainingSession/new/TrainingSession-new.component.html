@@ -1,0 +1,22 @@
+<o-form #TrainingSessionForm attr="TrainingSession_form_insert" service="TrainingSession" entity="TrainingSession" 
+keys="id" fxLayout="column" show-header="yes" header-actions="I"
+horizontal-scroll="yes"
+after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
+
+<o-row attr="row1" layout-align="start stretch">
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+    
+        <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #topic attr="topic" label="topic" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-date-input #date attr="date" type="timestamp" label="date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+      
+        <o-text-input #duration_hours attr="duration_hours" label="duration_hours" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+</div>
+</o-row>
+
+<div layout-padding></div>
+
+</o-form>

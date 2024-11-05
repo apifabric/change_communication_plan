@@ -1,0 +1,331 @@
+about:
+  date: November 05, 2024 16:42:52
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 10
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  BudgetAllocation:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: amount
+      required: true
+    description: Details the budget allocation for change initiatives.
+    info_list: Details the budget allocation for change initiatives.
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: BudgetAllocation
+    user_key: id
+  ChangeInitiative:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: description
+    - name: id
+    description: Represents a change initiative within the bank, capturing overarching
+      goals and objectives.
+    info_list: Represents a change initiative within the bank, capturing overarching
+      goals and objectives.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: BudgetAllocationList
+      resource: BudgetAllocation
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: ChangeOutcomeList
+      resource: ChangeOutcome
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: CollaborationEffortList
+      resource: CollaborationEffort
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: EngagementPlanList
+      resource: EngagementPlan
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: FeedbackList
+      resource: Feedback
+    - direction: tomany
+      fks:
+      - initiative_id
+      name: ResistanceMitigationList
+      resource: ResistanceMitigation
+    type: ChangeInitiative
+    user_key: name
+  ChangeOutcome:
+    attributes:
+    - label: ' outcome_description*'
+      name: outcome_description
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: success_metric
+    - name: id
+    description: "Records the outcomes of change initiatives, including success metrics.\u201D"
+    info_list: "Records the outcomes of change initiatives, including success metrics.\u201D"
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: ChangeOutcome
+    user_key: outcome_description
+  CollaborationEffort:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: department
+      required: true
+    - name: goal
+    description: Represents efforts for cross-functional collaboration essential for
+      change implementation.
+    info_list: Represents efforts for cross-functional collaboration essential for
+      change implementation.
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: CollaborationEffort
+    user_key: id
+  EngagementPlan:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: strategy
+      required: true
+    description: Outlines the approaches and actions to engage stakeholders during
+      change management.
+    info_list: Outlines the approaches and actions to engage stakeholders during change
+      management.
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: EngagementPlan
+    user_key: id
+  Feedback:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: feedback_text
+    description: Collects feedback from staff and stakeholders about the change process.
+    info_list: Collects feedback from staff and stakeholders about the change process.
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: Feedback
+    user_key: id
+  ResistanceMitigation:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: initiative_id
+      required: true
+    - name: tactic
+      required: true
+    description: Details strategies to mitigate resistance to change within the bank.
+    info_list: Details strategies to mitigate resistance to change within the bank.
+    tab_groups:
+    - direction: toone
+      fks:
+      - initiative_id
+      name: initiative
+      resource: ChangeInitiative
+    type: ResistanceMitigation
+    user_key: id
+  Skill:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: id
+    description: Catalogs individual skills required for effective change management.
+    info_list: Catalogs individual skills required for effective change management.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - skill_id
+      name: StaffSkillList
+      resource: StaffSkill
+    type: Skill
+    user_key: name
+  StaffMember:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: role
+    - name: skills_summary
+    - name: id
+    description: Contains information about staff members, including their roles and
+      skills within the bank.
+    info_list: Contains information about staff members, including their roles and
+      skills within the bank.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - staff_id
+      name: StaffSkillList
+      resource: StaffSkill
+    - direction: tomany
+      fks:
+      - staff_id
+      name: StaffTrainingList
+      resource: StaffTraining
+    type: StaffMember
+    user_key: name
+  StaffSkill:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: skill_id
+      required: true
+    - name: staff_id
+      required: true
+    description: Junction table associating staff members with their respective skills.
+    info_list: Junction table associating staff members with their respective skills.
+    tab_groups:
+    - direction: toone
+      fks:
+      - skill_id
+      name: skill
+      resource: Skill
+    - direction: toone
+      fks:
+      - staff_id
+      name: staff
+      resource: StaffMember
+    type: StaffSkill
+    user_key: id
+  StaffTraining:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: staff_id
+      required: true
+    - name: training_id
+      required: true
+    description: Maps staff to the training sessions they have attended.
+    info_list: Maps staff to the training sessions they have attended.
+    tab_groups:
+    - direction: toone
+      fks:
+      - staff_id
+      name: staff
+      resource: StaffMember
+    - direction: toone
+      fks:
+      - training_id
+      name: training
+      resource: TrainingSession
+    type: StaffTraining
+    user_key: id
+  TrainingSession:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: topic
+      required: true
+    - name: date
+      required: true
+      type: DATETIME
+    - name: duration_hours
+    description: Captures data about training sessions organized to support the change
+      initiative.
+    info_list: Captures data about training sessions organized to support the change
+      initiative.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - training_id
+      name: StaffTrainingList
+      resource: StaffTraining
+    type: TrainingSession
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
